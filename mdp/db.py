@@ -15,7 +15,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 @contextlib.contextmanager
 def create_session():
     """Contextmanager that will create and teardown a session."""
-    session = settings.Session()
+    session = SessionLocal()
     try:
         yield session
         session.commit()
