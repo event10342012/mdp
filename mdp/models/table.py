@@ -30,12 +30,14 @@ class MetaTable(Base):
             schema: str,
             name: str,
             description: Optional[str] = None,
-            owner: Optional[str] = None
+            owner: Optional[str] = None,
+            update_frequency: Optional[str] = None
     ):
         self.database = database
         self.schema = schema
         self.name = name
         self.description = description
         self.owner = owner
+        self.update_frequency = update_frequency
 
         self.columns: Optional[List[MetaColumn]] = None

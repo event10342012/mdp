@@ -1,9 +1,12 @@
+"""Meta column"""
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Index
 
 from mdp.models.base import Base
 
 
 class MetaColumn(Base):
+    """Meta Column
+    """
     __tablename__ = 'meta_column'
 
     id = Column(Integer, primary_key=True)
