@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from sqlalchemy import Column, String, Integer, UniqueConstraint, Index
+from sqlalchemy import Column, String, Integer, Index
 from sqlalchemy.orm import relationship
 
 from mdp.models.base import Base
