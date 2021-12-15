@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Index
 
 from mdp.models.base import Base
 
@@ -13,3 +13,7 @@ class MetaColumn(Base):
     description = Column(String(length=50))
     is_pk = Column(Boolean, nullable=False)
     nullable = Column(Boolean, nullable=False)
+
+    __table_args__ = (
+        Index('idx_meta_column', table_id, name)
+    )
