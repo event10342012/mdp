@@ -1,7 +1,7 @@
 from typing import Optional, List
 
-from sqlalchemy import Column, String, Integer, Index
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, Index, select
+from sqlalchemy.orm import relationship, Session
 
 from mdp.models.base import Base
 from mdp.models.column import MetaColumn
@@ -14,8 +14,8 @@ class MetaTable(Base):
     database = Column(String(length=50))
     schema = Column(String(length=50))
     name = Column(String(length=50))
-    description = Column(String(length=200))
-    owner = Column(String(length=20))
+    description = Column(String(length=100))
+    owner = Column(String(length=50))
     update_frequency = Column(String(length=1))
 
     columns = relationship('meta_column')
@@ -41,3 +41,17 @@ class MetaTable(Base):
         self.update_frequency = update_frequency
 
         self.columns: Optional[List[MetaColumn]] = None
+
+    def get_columns(self, session: Session = None) -> List[MetaColumn]:
+        stmt = select(MetaColumn).where(MetaColumn.table_id == self.id)
+        return session.execute(stmt)
+
+    def get_column(self, column_id, session: Session = None) -> MetaColumn:
+        stmt = select(MetaColumn).where(MetaColumn.table_id == self.id, MetaColumn.id == column_id)
+        return session.execute(stmt)
+
+    def generate_ddl(self, session: Session = None) -> str:
+        columns = self.get_columns(session=session)
+        columns_string = [f'{col.name} {col.data_type}' for col in columns]
+        sql = f'CREATE TABLE {self.database}.{self.schema}.{self.name} ()'
+        return sql
