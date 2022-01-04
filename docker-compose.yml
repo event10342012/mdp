@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: mdp
+      POSTGRES_PASSWORD: mdp
+      POSTGRES_DB: mdp
+      TZ: 'Asia/Taipei'
+      PGTZ: 'Asia/Taipei'
+    healthcheck:
+      test: [ 'CMD', 'pg_isready', '-U', 'mdp' ]
+      interval: 5s
+      retries: 5
+    restart: always
+    ports:
+      - "5432:5432"
