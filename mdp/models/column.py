@@ -18,7 +18,8 @@ class MetaColumn(Base):
     nullable = Column(Boolean, nullable=False)
 
     __table_args__ = (
-        Index('idx_meta_column', table_id, name, unique=True)
+        Index('idx_meta_column', table_id, name, unique=True),
+        {'extend_existing': True}
     )
 
     def __init__(self, name, data_type, description, is_pk, nullable):

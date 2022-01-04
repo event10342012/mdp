@@ -21,7 +21,8 @@ class MetaTable(Base):
     columns = relationship('meta_column')
 
     __table_args__ = (
-        Index('idx_meta_table', database, schema, name, unique=True)
+        Index('idx_meta_table', database, schema, name, unique=True),
+        {'extend_existing': True}
     )
 
     def __init__(
@@ -53,5 +54,5 @@ class MetaTable(Base):
     def generate_ddl(self, session: Session = None) -> str:
         columns = self.get_columns(session=session)
         columns_string = [f'{col.name} {col.data_type}' for col in columns]
-        sql = f'CREATE TABLE {self.database}.{self.schema}.{self.name} ()'
+        sql = f'CREATE TABLE {self.database}.{self.schema}.{self.name} ({columns_string})'
         return sql
