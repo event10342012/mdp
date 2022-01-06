@@ -45,11 +45,13 @@ class MetaTable(Base):
 
     def get_columns(self, session: Session = None) -> List[MetaColumn]:
         stmt = select(MetaColumn).where(MetaColumn.table_id == self.id)
-        return session.execute(stmt)
+        result = session.execute(stmt)
+        return result.fetchall()
 
     def get_column(self, column_id, session: Session = None) -> MetaColumn:
         stmt = select(MetaColumn).where(MetaColumn.table_id == self.id, MetaColumn.id == column_id)
-        return session.execute(stmt)
+        result = session.execute(stmt)
+        return result.first()
 
     def generate_ddl(self, session: Session = None) -> str:
         columns = self.get_columns(session=session)

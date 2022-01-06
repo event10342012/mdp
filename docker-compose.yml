@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  postgres:
+  mdp-db:
     image: postgres:13
     environment:
       POSTGRES_USER: mdp
