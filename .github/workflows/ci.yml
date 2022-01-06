@@ -1,9 +1,9 @@
-name: Python Package using Conda
+name: Tests
 
 on: [push]
 
 jobs:
-  build-linux:
+  test-mdp:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
@@ -14,7 +14,5 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9.9
-    - name: Add conda to system path
-      run: |
-        ls -al
-        pip install -r requirements.txt
+    - name: Install python package
+      run: pip install -r requirements.txt
