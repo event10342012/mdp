@@ -18,7 +18,7 @@ class MetaTable(Base):
     owner = Column(String(length=50))
     update_frequency = Column(String(length=1))
 
-    columns = relationship('meta_column')
+    columns = relationship('MetaColumn', back_populates='table')
 
     __table_args__ = (
         Index('idx_meta_table', database, schema, name, unique=True),

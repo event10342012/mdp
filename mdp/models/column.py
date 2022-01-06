@@ -1,5 +1,6 @@
 """Meta column"""
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Index
+from sqlalchemy.orm import relationship
 
 from mdp.models.base import Base
 
@@ -16,6 +17,9 @@ class MetaColumn(Base):
     description = Column(String(length=100))
     is_pk = Column(Boolean, nullable=False)
     nullable = Column(Boolean, nullable=False)
+
+    table = relationship('MetaTable', back_populates='columns')
+    codes = relationship('MetaCode', back_populates='column')
 
     __table_args__ = (
         Index('idx_meta_column', table_id, name, unique=True),
