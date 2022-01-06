@@ -1,19 +1,19 @@
 import contextlib
 from functools import wraps
 from inspect import signature
-from typing import Callable, TypeVar
+from typing import Iterator, TypeVar, Callable
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 
-from config import settings
+from mdp.core.config import settings
 
 engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, pool_pre_ping=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 
 
 @contextlib.contextmanager
-def create_session():
+def create_session() -> Iterator[Session]:
     """Contextmanager that will create and teardown a session."""
     session = SessionLocal()
     try:
