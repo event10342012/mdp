@@ -3,6 +3,7 @@ from typing import Optional, List
 from sqlalchemy import Column, String, Integer, Index, select
 from sqlalchemy.orm import relationship, Session
 
+from mdp.db import provide_session
 from mdp.models.base import Base
 from mdp.models.column import MetaColumn
 
@@ -43,16 +44,19 @@ class MetaTable(Base):
 
         self.columns: Optional[List[MetaColumn]] = None
 
+    @provide_session
     def get_columns(self, session: Session = None) -> List[MetaColumn]:
         stmt = select(MetaColumn).where(MetaColumn.table_id == self.id)
         result = session.execute(stmt)
-        return result.fetchall()
+        return result.all()
 
+    @provide_session
     def get_column(self, column_id, session: Session = None) -> MetaColumn:
         stmt = select(MetaColumn).where(MetaColumn.table_id == self.id, MetaColumn.id == column_id)
         result = session.execute(stmt)
         return result.first()
 
+    @provide_session
     def generate_ddl(self, session: Session = None) -> str:
         columns = self.get_columns(session=session)
         columns_string = [f'{col.name} {col.data_type}' for col in columns]
