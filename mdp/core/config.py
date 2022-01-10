@@ -1,7 +1,7 @@
 import secrets
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator, EmailStr
+from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
@@ -26,10 +26,10 @@ class Settings(BaseSettings):
 
     PROJECT_NAME: str = 'mdp'
 
-    POSTGRES_SERVER: str = 'localhost'
-    POSTGRES_USER: str = 'mdp'
-    POSTGRES_PASSWORD: str = 'mdp'
-    POSTGRES_DB: str = 'mdp'
+    POSTGRES_SERVER: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
