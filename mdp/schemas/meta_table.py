@@ -23,7 +23,7 @@ class MetaTableUpdate(MetaTableBase):
 
 
 class MetaTableInDBBase(MetaTableBase):
-    id: str
+    id: int
     database: str
     schema: str
     name: str

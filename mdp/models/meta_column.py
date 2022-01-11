@@ -11,7 +11,7 @@ class MetaColumn(Base):
     __tablename__ = 'meta_column'
 
     id = Column(Integer, primary_key=True)
-    table_id = Column(Integer, ForeignKey('meta_table.id'))
+    meta_table_id = Column(Integer, ForeignKey('meta_table.id'))
     name = Column(String(length=50))
     data_type = Column(String(length=20))
     description = Column(String(length=100))
@@ -22,7 +22,7 @@ class MetaColumn(Base):
     codes = relationship('MetaCode', back_populates='column')
 
     __table_args__ = (
-        Index('idx_meta_column', table_id, name, unique=True),
+        Index('idx_meta_column', meta_table_id, name, unique=True),
         {'extend_existing': True}
     )
 
