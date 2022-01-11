@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class TableBase(BaseModel):
+class MetaTableBase(BaseModel):
     database: Optional[str] = None
     schema: Optional[str] = None
     name: Optional[str] = None
@@ -12,17 +12,17 @@ class TableBase(BaseModel):
     update_frequency: Optional[str] = None
 
 
-class TableCreate(TableBase):
+class MetaTableCreate(MetaTableBase):
     database: str
     schema: str
     name: str
 
 
-class TableUpdate(TableBase):
+class MetaTableUpdate(MetaTableBase):
     pass
 
 
-class TableInDBBase(TableBase):
+class MetaTableInDBBase(MetaTableBase):
     id: str
     database: str
     schema: str
@@ -32,9 +32,9 @@ class TableInDBBase(TableBase):
         orm_mode = True
 
 
-class Table(TableInDBBase):
+class MetaTable(MetaTableInDBBase):
     pass
 
 
-class TableInDB(TableInDBBase):
+class MetaTableInDB(MetaTableInDBBase):
     pass
