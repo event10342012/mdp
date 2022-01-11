@@ -1,9 +1,9 @@
 from mdp.crud.base import CRUDBase
 from mdp.models.meta_table import MetaTable
-from mdp.schemas.meta_table import TableCreate, TableUpdate
+from mdp.schemas.meta_table import MetaTableCreate, MetaTableUpdate
 
 
-class CRUDMetaTable(CRUDBase[MetaTable, TableCreate, TableUpdate]):
+class CRUDMetaTable(CRUDBase[MetaTable, MetaTableCreate, MetaTableUpdate]):
     pass
 
 
