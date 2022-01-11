@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship, Session
 
 from mdp.db import provide_session
 from mdp.models.base import Base
-from mdp.models.column import MetaColumn
+from mdp.models.meta_column import MetaColumn
 
 
 class MetaTable(Base):
